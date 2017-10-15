@@ -1,11 +1,11 @@
 # Reedux
 
-As applications grow, we have to move away from one large combined reducer, 
-and start breaking down code into modules that depend on a store export 
+As applications grow, there's this idea to move away from one large combined reducer, 
+and break down code into modules that depend on a store export 
 
 This is another implementation of [Dynamic Reducers Loading](https://stackoverflow.com/questions/32968016/how-to-dynamically-load-reducers-for-code-splitting-in-a-redux-application). 
-Chances are you already built one yourself. 
-If you did, you are not alone
+Chances are you already built one yourself. [Other people did](#similar-efforts).
+If you did too, you are not alone
 
 This library is:
 
@@ -17,7 +17,7 @@ This library is:
 - will not change the behavior of Redux in any way
 - declarative, easy to use - the same syntax that you're familiar with
 - supports and promotes [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux) / [re-ducks](https://github.com/alexnm/re-ducks)
-- supports adding reducers by type - you can specify the action type as the first parameter to addReducer
+- supports adding reducers by type - you can specify the action type as the first parameter when registering new reducers
 - supports HMR without storing extra information on the store
 - does one thing, and one thing only
 - no runtime dependencies
