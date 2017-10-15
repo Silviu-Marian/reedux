@@ -1,6 +1,6 @@
 {
   "name": "reedux",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A really simple approach to managing Redux store paths and reducers",
   "main": "reedux.min.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type" : "git",
-    "url" : "https://github.com/npm/npm.git"
+    "url" : "https://github.com/Silviu-Marian/reedux.git"
   },
   "author": "Silviu Marian <ksilviu.marian@gmail.com>",
   "license": "MIT",
