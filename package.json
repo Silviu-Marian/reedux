@@ -1,13 +1,13 @@
 {
   "name": "reedux",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A really simple approach to managing Redux store paths and reducers",
   "main": "reedux.min.js",
   "scripts": {
     "start": "node ./",
     "test": "nyc --reporter=html mocha **/*.spec.js",
     "test-watch": "mocha **/*.spec.js --watch",
-    "prepublish": "npm test && babel ./reedux.js --out-file reedux.min.js"
+    "build": "npm test && babel ./reedux.js --out-file reedux.min.js"
   },
   "repository": {
     "type" : "git",

@@ -10,7 +10,7 @@ install:
     - npm install && npm update
 
 script:
-    - npm prepublish
+    - npm run build
 
 deploy:
     provider: npm
