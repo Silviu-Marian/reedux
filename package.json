@@ -1,0 +1,29 @@
+{
+  "name": "reedux",
+  "version": "0.0.3",
+  "description": "A really simple approach to managing Redux store paths and reducers",
+  "main": "reedux.min.js",
+  "scripts": {
+    "start": "node ./",
+    "test": "nyc --reporter=html mocha **/*.spec.js",
+    "test-watch": "mocha **/*.spec.js --watch",
+    "prepublish": "npm test && babel ./reedux.js --out-file reedux.min.js"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/npm/npm.git"
+  },
+  "author": "Silviu Marian <ksilviu.marian@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "redux": "^3.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.2.1",
+    "redux": "^3.0.0"
+  }
+}
