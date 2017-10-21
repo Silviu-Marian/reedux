@@ -16,3 +16,4 @@ deploy:
     provider: npm
     email: ksilviu.marian@gmail.com
     api_key: $NPM_TOKEN
+    skip_cleanup: true
