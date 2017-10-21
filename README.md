@@ -79,7 +79,7 @@ reducer((customers, action) => {
     case 'addCustomer':
       return [...customers, action.customerData];
     case 'deleteCustomer': 
-      return [...customers.filter(customer => customer !== action.customerId)];
+      return [...customers.filter(customer => customer.id !== action.customerId)];
     default:
       return customers;
   }
