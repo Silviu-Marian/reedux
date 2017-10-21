@@ -1,7 +1,5 @@
-# Created by .ignore support plugin (hsz.mobi)
 /coverage
 /node_modules
 /.idea
 /.nyc_output
 /reedux.iml
-/reedux.min.js
