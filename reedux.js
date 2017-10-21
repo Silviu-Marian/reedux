@@ -2,7 +2,7 @@ const { combineReducers  } = require('redux');
 
 const stores = new WeakMap();
 
-module.exports = (store) => {
+const reedux = function (store) {
   const {
     currentStorePaths,
     reducersByStorePath,
@@ -23,7 +23,7 @@ module.exports = (store) => {
   return (storePathName, initialState) => {
     // this is the store level reducer - which looks for store path level reducers
     currentStorePaths[storePathName] = (state = initialState, action) => {
-      const { type } = action;
+      const {type} = action;
       let newState = state;
 
       // execute reducers by type if any
@@ -51,7 +51,7 @@ module.exports = (store) => {
     // - addReducer((state, action) => { switch(action.type) {...} }
     // - addReducer(type, (state, action) => {...})
     return (...params) => {
-      let [ actionType, reducer ] = params;
+      let [actionType, reducer] = params;
       if (typeof actionType === 'function') {
         reducer = actionType;
         actionType = undefined;
@@ -67,3 +67,13 @@ module.exports = (store) => {
     }
   };
 };
+
+// UMD
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+      (factory((global.reedux = global.reedux || {})));
+}(this, function (exports) {
+  exports.default = reedux;
+  Object.defineProperty(exports, '__esModule', { value: true });
+}));

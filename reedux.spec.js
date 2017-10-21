@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 const { createStore, applyMiddleware } = require('redux');
-const reedux = require('./reedux');
+const reedux = require('./reedux').default;
 
 describe('Store', () => {
   const store = createStore(() => {});
