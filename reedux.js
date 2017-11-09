@@ -52,10 +52,13 @@ const reedux = function (store) {
           const reducer = currentStorePaths[storePathName];
           const currentStorePathState = state[storePath];
           const newStorePathState = reducer(currentStorePathState, action);
-
           hasChanges = hasChanges || currentStorePathState !== newStorePathState;
-          return { ...incompleteState, [storePath]: newStorePathState };
-        }, { ...state });
+
+          // @TODO - use the spread operator as soon as travis updates their node version
+          const nextIncompleteState = Object.assign({}, incompleteState);
+          nextIncompleteState[storePath] = newStorePathState;
+          return nextIncompleteState;
+        }, Object.assign({}, state));
 
       return hasChanges ? nextState : state;
     });
