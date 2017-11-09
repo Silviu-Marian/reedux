@@ -53,5 +53,35 @@ describe('Store', () => {
     assert.equal(y, 2);
     assert.equal(z, 3);
   });
+
+  it('should preserve existing reducers if any were supplied', () => {
+    const existingReducer = combineReducers({
+      numbers: (state = 0, { type }) => {
+        switch (type) {
+          case 'INC':
+            return state + 1;
+          case 'DEC':
+            return state - 1;
+          default:
+            return state;
+        }
+      }
+    });
+    const store = createStore(existingReducer);
+
+    store.dispatch({ type: 'INC' });
+    assert.equal(store.getState().numbers, 1);
+
+    const storePath = reedux(store, existingReducer);
+    const reducer = storePath('numbers');
+    reducer('POW', state => Math.pow(state, 2));
+
+    store.dispatch({ type: 'INC' }); // 2
+    assert.equal(store.getState().numbers, 2);
+    store.dispatch({ type: 'POW' }); // 4
+    assert.equal(store.getState().numbers, 4);
+    store.dispatch({ type: 'DEC' }); // 3
+    assert.equal(store.getState().numbers, 3);
+  });
 });
 

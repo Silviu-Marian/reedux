@@ -2,7 +2,7 @@ const { combineReducers  } = require('redux');
 
 const stores = new WeakMap();
 
-const reedux = function (store) {
+const reedux = function (store, existingReducer = s => s) {
   const {
     currentStorePaths,
     reducersByStorePath,
@@ -17,6 +17,7 @@ const reedux = function (store) {
     currentStorePaths,
     reducersByStorePath,
     reducersByActionType,
+    existingReducer,
   });
 
   // addStorePath
@@ -46,11 +47,12 @@ const reedux = function (store) {
 
     // now everything is set up properly and we can replace the reducers on the store
     store.replaceReducer((state = {}, action) => {
-      let hasChanges = false;
-      const nextState = Object.keys(currentStorePaths)
+      let nextState = existingReducer(state, action);
+      let hasChanges = state !== nextState;
+      nextState = Object.keys(currentStorePaths)
         .reduce((incompleteState, storePath) => {
           const reducer = currentStorePaths[storePathName];
-          const currentStorePathState = state[storePath];
+          const currentStorePathState = nextState[storePath];
           const newStorePathState = reducer(currentStorePathState, action);
           hasChanges = hasChanges || currentStorePathState !== newStorePathState;
 
@@ -58,7 +60,7 @@ const reedux = function (store) {
           const nextIncompleteState = Object.assign({}, incompleteState);
           nextIncompleteState[storePath] = newStorePathState;
           return nextIncompleteState;
-        }, Object.assign({}, state));
+        }, Object.assign({}, nextState));
 
       return hasChanges ? nextState : state;
     });

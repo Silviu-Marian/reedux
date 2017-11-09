@@ -1,6 +1,6 @@
 # Reedux
 
-As applications grow, there's this idea to move away from one large combined reducer, 
+As applications grow, there's the idea to move away from one large combined reducer, 
 and break down code into modules that depend on a store export 
 
 [![npm downloads](https://img.shields.io/npm/dm/reedux.svg)](https://www.npmjs.com/package/reedux)
@@ -38,20 +38,21 @@ Most projects already have support for it via `babel-polyfill` but if yours does
 
 #### API
 
-###### `reedux(object store)` 
+###### `reedux(object store, [function existingReducer])` 
 - the default export in the lib
+- `store` is the store to be managed
+- `existingReducer` should be supplied if the given `store` already has a reducer
 - **returns a `storePath()` function for the given store**
 ----
 
 ###### `storePath(string name, any initialState)` 
 - registers a new store path in your current store
-- the store path will be populated with initialState at the end of the call
-- as per Redux convention, `initialState` cannot be `undefined` 
+- the store path will be populated with `initialState` at the end of the call
 - **returns `reducer()` function for the given store path**
 ----
 
 ###### `reducer([string type], function reducer)` 
-- adds reducers 
+- registers a reducer 
 
 
 #### Example
@@ -98,7 +99,6 @@ reducer('deleteCustomer', (customers, action) =>
 ```
 
 #### Limitations
-- Preserving externally managed reducers is not supported
 - Deleting reducers or store paths is not supported 
 
 #### Similar efforts
