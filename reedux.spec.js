@@ -82,6 +82,16 @@ describe('Store', () => {
     assert.equal(store.getState().numbers, 4);
     store.dispatch({ type: 'DEC' }); // 3
     assert.equal(store.getState().numbers, 3);
+
+    const otherStorePath = reedux(store);
+    const otherReducer = otherStorePath('numbers');
+    otherReducer('SQRT', state => Math.sqrt(state));
+
+    store.dispatch({ type: 'POW' }); // 9
+    assert.equal(store.getState().numbers, 9);
+
+    store.dispatch({ type: 'INC' }); // 10
+    assert.equal(store.getState().numbers, 10);
   });
 });
 
