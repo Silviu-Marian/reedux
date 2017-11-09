@@ -1,5 +1,3 @@
-const { combineReducers  } = require('redux');
-
 const stores = new WeakMap();
 
 const reedux = function (store, existingReducer) {
