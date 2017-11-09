@@ -26,9 +26,10 @@ This library is:
 - supports and promotes [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux) / [re-ducks](https://github.com/alexnm/re-ducks)
 - supports adding reducers by type - you can specify the action type as the first parameter when registering new reducers
 - supports HMR without storing extra information on the store
+- supports server-side rendering with preloaded state
 - does one thing, and one thing only
 - no runtime dependencies
-- 70 lines of code
+- small footprint, under 100 lines of code
 - fully tested
 - licensed under MIT, completely free to use
 
@@ -97,8 +98,8 @@ reducer('deleteCustomer', (customers, action) =>
 ```
 
 #### Limitations
-- Deleting reducers or store paths is only possible if replacing the whole store 
-
+- Preserving externally managed reducers is not supported
+- Deleting reducers or store paths is not supported 
 
 #### Similar efforts
 - [redux-modules](https://github.com/procore/redux-modules)

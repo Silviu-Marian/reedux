@@ -1,34 +1,34 @@
 const assert = require('assert');
 
-const { createStore, applyMiddleware } = require('redux');
+const { createStore, applyMiddleware, combineReducers } = require('redux');
 const reedux = require('./reedux').default;
 
 describe('Store', () => {
-  const store = createStore(() => {});
-  const { subscribe, dispatch, getState, replaceReducer } = store;
-
-  const addStorePath = reedux(store);
-
-  it('should be a redux store', () => {
-    assert.equal(typeof subscribe, 'function');
-    assert.equal(typeof dispatch, 'function');
-    assert.equal(typeof getState, 'function');
-    assert.equal(typeof replaceReducer, 'function');
+   it('should be a redux store', () => {
+    const store = createStore(s => s);
+    assert.equal(typeof store.subscribe, 'function');
+    assert.equal(typeof store.dispatch, 'function');
+    assert.equal(typeof store.getState, 'function');
+    assert.equal(typeof store.replaceReducer, 'function');
   });
 
   it('should make storePaths available', () => {
-    const addReducer = addStorePath('test', { x: 0, y: 0 });
-    assert.equal(getState().test.x, 0);
-    assert.equal(getState().test.y, 0);
+    const store = createStore(s => s);
+    const storePath = reedux(store);
+    storePath('test', { x: 0, y: 0 });
+    assert.equal(store.getState().test.x, 0);
+    assert.equal(store.getState().test.y, 0);
   });
 
   it('should add/execute dynamically loaded reducers', () => {
-    const addReducer = addStorePath('test', { x: 0, y: 0 });
-    addReducer('incrementX', state => Object.assign({}, state, { x: state.x + 1 }));
-    addReducer(state => (Object.assign({}, state, { z: 2 })));
+    const store = createStore(s => s);
+    const storePath = reedux(store);
+    const reducer = storePath('test', { x: 0, y: 0 });
+    reducer('incrementX', state => Object.assign({}, state, { x: state.x + 1 }));
+    reducer(state => (Object.assign({}, state, { z: 2 })));
     store.dispatch({ type: 'incrementX' });
-    assert.equal(getState().test.x, 1);
-    assert.equal(getState().test.z, 2);
+    assert.equal(store.getState().test.x, 1);
+    assert.equal(store.getState().test.z, 2);
   });
 
   it('should provide the state immediately, even with async middleware', () => {
@@ -37,10 +37,21 @@ describe('Store', () => {
         next(action);
       }, 200);
     };
-    const newStore = createStore(s => s, applyMiddleware(asyncMiddleware));
-    const addStorePath = reedux(newStore);
-    addStorePath('if', { it: 'works' });
-    assert.equal(newStore.getState().if.it, 'works');
+    const store = createStore(s => s, applyMiddleware(asyncMiddleware));
+    const storePath = reedux(store);
+    storePath('if', { it: 'works' });
+    assert.equal(store.getState().if.it, 'works');
+  });
+
+  it('should work with preloaded state on an existing store', () => {
+    const store = createStore(s => s, { x: 1, y: 2 });
+    const storePath = reedux(store);
+    storePath('z', 3);
+
+    const { x, y, z } = store.getState();
+    assert.equal(x, 1);
+    assert.equal(y, 2);
+    assert.equal(z, 3);
   });
 });
 

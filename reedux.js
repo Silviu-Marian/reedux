@@ -45,7 +45,20 @@ const reedux = function (store) {
     reducersByActionType[storePathName] = {};
 
     // now everything is set up properly and we can replace the reducers on the store
-    store.replaceReducer(combineReducers(currentStorePaths));
+    store.replaceReducer((state = {}, action) => {
+      let hasChanges = false;
+      const nextState = Object.keys(currentStorePaths)
+        .reduce((incompleteState, storePath) => {
+          const reducer = currentStorePaths[storePathName];
+          const currentStorePathState = state[storePath];
+          const newStorePathState = reducer(currentStorePathState, action);
+
+          hasChanges = hasChanges || currentStorePathState !== newStorePathState;
+          return { ...incompleteState, [storePath]: newStorePathState };
+        }, { ...state });
+
+      return hasChanges ? nextState : state;
+    });
 
     // the setup allows reducers registration both ways:
     // - addReducer((state, action) => { switch(action.type) {...} }
