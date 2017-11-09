@@ -3,12 +3,12 @@
 As applications grow, there's this idea to move away from one large combined reducer, 
 and break down code into modules that depend on a store export 
 
+[![npm downloads](https://img.shields.io/npm/dm/reedux.svg)](https://www.npmjs.com/package/reedux)
 [![Build Status](https://travis-ci.org/Silviu-Marian/reedux.svg?branch=master)](https://travis-ci.org/Silviu-Marian/reedux)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![dependencies Status](https://david-dm.org/silviu-marian/reedux/status.svg)](https://david-dm.org/silviu-marian/reedux)
 [![devDependencies Status](https://david-dm.org/silviu-marian/reedux/dev-status.svg)](https://david-dm.org/silviu-marian/reedux?type=dev)
 [![peerDependencies Status](https://david-dm.org/silviu-marian/reedux/peer-status.svg)](https://david-dm.org/silviu-marian/reedux?type=peer)
-
 
 This is another implementation of [Dynamic Reducers Loading](https://stackoverflow.com/questions/32968016/how-to-dynamically-load-reducers-for-code-splitting-in-a-redux-application). 
 Chances are you already built one yourself. [Other people did](#similar-efforts).
