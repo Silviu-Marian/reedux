@@ -1,6 +1,6 @@
 {
   "name": "reedux",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A really simple approach to managing Redux store paths and reducers",
   "main": "reedux.min.js",
   "scripts": {

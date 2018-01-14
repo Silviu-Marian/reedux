@@ -93,5 +93,24 @@ describe('Store', () => {
     store.dispatch({ type: 'INC' }); // 10
     assert.equal(store.getState().numbers, 10);
   });
+
+  it('should preserve initial states', () => {
+    const store = createStore(
+      (state) => state,
+      {},
+    );
+    const storePath = reedux(store);
+
+    const reducerBuildAndQuote = storePath('buildAndQuote', 'buildAndQuote');
+    reducerBuildAndQuote(s => s);
+
+    const reducerModelYear = storePath('modelYear', 'modelYear');
+    reducerModelYear(s => s);
+
+    const state = store.getState();
+    assert.equal(Object.keys(state).sort().join(','), 'buildAndQuote,modelYear');
+    assert.equal(state.buildAndQuote, 'buildAndQuote');
+    assert.equal(state.modelYear, 'modelYear');
+  });
 });
 
