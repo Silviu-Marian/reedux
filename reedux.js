@@ -52,7 +52,7 @@ const reedux = function (store, existingReducer) {
       let hasChanges = state !== nextState;
       nextState = Object.keys(currentStorePaths)
         .reduce((incompleteState, storePath) => {
-          const reducer = currentStorePaths[storePathName];
+          const reducer = currentStorePaths[storePath];
           const currentStorePathState = nextState[storePath];
           const newStorePathState = reducer(currentStorePathState, action);
           hasChanges = hasChanges || currentStorePathState !== newStorePathState;
